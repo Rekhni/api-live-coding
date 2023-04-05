@@ -20,6 +20,8 @@
 
     let token = "Bearer 94b8bwbkc8bo6g5g5k5o5s5w60686c5c6g94asbwbkdgc4dkbkasc8"; 
 
+    token = null;
+
     const host = 'https://webdev-hw-api.vercel.app/api/v2/todos';
 
 
@@ -40,12 +42,39 @@
         })
         .then((responseData) => {
           tasks = responseData.todos;
-          renderTasks();
+          renderApp();
         });
     };
 
-    const renderTasks = () => {
+    const renderApp = () => {
       const appEl = document.getElementById("app");
+
+      if (!token) {
+        const appHtml = `
+                <h1>Список задач</h1>
+                <div class="form">
+                <h3 class="form-title">Форма входа</h3>
+                <div class="form-row">
+                    Логин
+                    <input type="text" id="login-input" class="input" />
+                    <br />
+                    Пароль
+                    <input type="text" id="login-input" class="input" />
+                </div>
+                <br />
+                <button class="button" id="login-button">Войти</button>
+        `;
+
+      appEl.innerHTML = appHtml;
+
+      document.getElementById('login-button').addEventListener('click', () => {
+        token = "Bearer 94b8bwbkc8bo6g5g5k5o5s5w60686c5c6g94asbwbkdgc4dkbkasc8"; 
+        fetchTodosAndRender();
+      })
+
+      return;
+      }
+
       const tasksHtml = tasks
         .map((task) => {
           return `
@@ -60,17 +89,7 @@
 
       const appHtml = `
                 <h1>Список задач</h1>
-                <div class="form">
-                <h3 class="form-title">Форма входа</h3>
-                <div class="form-row">
-                    Логин
-                    <input type="text" id="login-input" class="input" />
-                    <br />
-                    Пароль
-                    <input type="text" id="login-input" class="input" />
-                </div>
-                <br />
-                <button class="button" id="login-button">Войти</button>
+
                 </div>
                 <ul class="tasks" id="list">
                 <!-- Список рендерится из JS -->
@@ -119,10 +138,10 @@
             .then((responseData) => {
               // Получили данные и рендерим их в приложении
               tasks = responseData.todos;
-              renderTasks();
+              renderApp();
             });
 
-          renderTasks();
+          renderApp();
         });
       }
       
@@ -165,11 +184,12 @@
           buttonElement.textContent = "Добавить";
         });
 
-      renderTasks();
+      renderApp();
       });
     };
 
-    fetchTodosAndRender();
+    // fetchTodosAndRender();
+    renderApp();
 
 
   </script>
