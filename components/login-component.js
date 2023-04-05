@@ -1,3 +1,5 @@
+import { login } from "../api.js";
+
 export function renderLoginComponent( { appEl, setToken, fetchTodosAndRender } ) {
     const appHtml = `
         <h1>Список задач</h1>
@@ -18,9 +20,16 @@ export function renderLoginComponent( { appEl, setToken, fetchTodosAndRender } )
 
     document.getElementById('login-button').addEventListener('click', () => {
 
-    setToken("Bearer 94b8bwbkc8bo6g5g5k5o5s5w60686c5c6g94asbwbkdgc4dkbkasc8");
-    
-    fetchTodosAndRender();
-
-    })
+        login({
+            login: "admin",
+            password: "admin",
+        }).then((user) => {
+            console.log(user);
+            setToken(`Bearer ${user.user.token}`)
+            fetchTodosAndRender();
+        });
+    });
 }
+
+
+// Bearer 94b8bwbkc8bo6g5g5k5o5s5w60686c5c6g94asbwbkdgc4dkbkasc8
