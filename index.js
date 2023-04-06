@@ -17,7 +17,7 @@ import { renderLoginComponent } from "./components/login-component.js";
     let token = "Bearer 94b8bwbkc8bo6g5g5k5o5s5w60686c5c6g94asbwbkdgc4dkbkasc8"; 
 
     token = null;
-
+    
     const fetchTodosAndRender = () => {
       return getTodos( {token} ).then((responseData) => {
           tasks = responseData.todos;
