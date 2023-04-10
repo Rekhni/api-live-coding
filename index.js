@@ -10,6 +10,7 @@
 
 import { addTodo, deleteTodo, getTodos } from "./api.js";
 import { renderLoginComponent } from "./components/login-component.js";
+import { formatDateToRu, formatDateToUs } from "./lib/formatDate/formatDate.js";
 
 
     let tasks = [];
@@ -41,6 +42,8 @@ import { renderLoginComponent } from "./components/login-component.js";
         return;
       }
 
+      const country = "ru";
+
       const tasksHtml = tasks
         .map((task) => {
           return `
@@ -49,6 +52,7 @@ import { renderLoginComponent } from "./components/login-component.js";
               ${task.text} (Создал: ${task.user?.name ?? "Неизвестно"})
               <button data-id="${task.id}" class="button delete-button">Удалить</button>
             </p>
+            <p><i>Задача создана: ${country === "ru" ? formatDateToRu(new Date(task.created_at)) : formatDateToUs(new Date(task.created_at))}</i></p>
           </li>`;
         })
         .join("");
