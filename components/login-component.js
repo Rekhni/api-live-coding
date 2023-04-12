@@ -1,6 +1,7 @@
 import { loginUser, registerUser} from "../api.js";
 import _ from 'lodash';
 
+
 export function renderLoginComponent( { appEl, setToken, fetchTodosAndRender } ) {
     let isLoginMode = true;
 
